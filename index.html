@@ -1,131 +1,81 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Business</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #222;
-    }
-    header {
-      background: #0d1b2a;
-      color: white;
-      text-align: center;
-      padding: 50px 20px;
-    }
-    header h1 {
-      font-size: 36px;
-    }
-    header p {
-      font-size: 18px;
-    }
-    nav {
-      background: #1b263b;
-      padding: 15px;
-      text-align: center;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 10px;
-    }
-    section {
-      padding: 40px 20px;
-      text-align: center;
-    }
-    .services {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      width: 250px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    }
-    .contact {
-      background: #e0eafc;
-    }
-    .button {
-      display: inline-block;
-      background: #25d366;
-      color: white;
-      padding: 15px 25px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    footer {
-      background: #0d1b2a;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Challenge</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #101827;
+  color: white;
+  text-align: center;
+  padding: 25px;
+}
+.card {
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 18px;
+  margin-top: 30px;
+}
+button {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-top: 20px;
+}
+h1 { color: #38bdf8; }
+</style>
 </head>
 <body>
 
-  <header>
-    <h1>My Business</h1>
-    <p>Quality services. Trusted results.</p>
-  </header>
+<h1>Daily Challenge</h1>
+<p>Welcome! Make today count.</p>
 
-  <nav>
-    <a href="#about">About</a>
-    <a href="#services">Services</a>
-    <a href="#contact">Contact</a>
-  </nav>
+<div class="card">
+  <h2>Today's Challenge</h2>
+  <p>Complete 20 minutes of exercise today!</p>
+  <h3 id="points">Points: 0</h3>
+  <button id="complete">Complete Challenge</button>
+  <p id="message"></p>
+</div>
 
-  <section id="about">
-    <h2>Welcome to My Business</h2>
-    <p>
-      We are dedicated to providing quality services
-      and making our customers happy.
-      Your satisfaction is our priority.
-    </p>
-  </section>
+<script>
+let points = Number(localStorage.getItem("points")) || 0;
+let completed = localStorage.getItem("completed") ===
+  new Date().toDateString();
 
-  <section id="services">
-    <h2>Our Services</h2>
-    <div class="services">
+document.getElementById("points").textContent =
+  "Points: " + points;
 
-      <div class="card">
-        <h3>Service One</h3>
-        <p>We provide excellent service to meet your needs.</p>
-      </div>
+const button = document.getElementById("complete");
 
-      <div class="card">
-        <h3>Service Two</h3>
-        <p>Affordable solutions with quality results.</p>
-      </div>
+if (completed) {
+  button.disabled = true;
+  button.textContent = "Completed Today!";
+}
 
-      <div class="card">
-        <h3>Service Three</h3>
-        <p>Reliable support whenever you need us.</p>
-      </div>
+button.addEventListener("click", function() {
+  if (completed) return;
 
-    </div>
-  </section>
+  points += 10;
+  localStorage.setItem("points", points);
+  localStorage.setItem("completed", new Date().toDateString());
 
-  <section id="contact" class="contact">
-    <h2>Contact Us</h2>
-    <p>Ready to work with us? Send us a message today!</p>
-    <a class="button"
-       href="https://wa.me/2348012345678">
-       Chat on WhatsApp
-    </a>
-  </section>
+  document.getElementById("points").textContent =
+    "Points: " + points;
 
-  <footer>
-    <p>&copy; 2026 My Business. All rights reserved.</p>
-  </footer>
+  document.getElementById("message").textContent =
+    "Congratulations! You earned 10 points!";
+
+  button.disabled = true;
+  button.textContent = "Completed Today!";
+});
+</script>
 
 </body>
 </html>
